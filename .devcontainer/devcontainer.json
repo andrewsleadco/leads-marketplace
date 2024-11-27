@@ -1,0 +1,26 @@
+{
+    "name": "Leads Marketplace Development",
+    "image": "mcr.microsoft.com/devcontainers/typescript-node:1-20-bullseye",
+    "features": {
+      "ghcr.io/devcontainers/features/node:1": {},
+      "ghcr.io/devcontainers/features/github-cli:1": {}
+    },
+    "customizations": {
+      "vscode": {
+        "extensions": [
+          "dbaeumer.vscode-eslint",
+          "esbenp.prettier-vscode",
+          "bradlc.vscode-tailwindcss",
+          "GitHub.copilot",
+          "dsznajder.es7-react-js-snippets",
+          "ms-vscode.vscode-typescript-next"
+        ]
+      }
+    },
+    "forwardPorts": [3000],
+    "postCreateCommand": "cd frontend && npm install",
+    "remoteUser": "node",
+    "hostRequirements": {
+      "memory": "8gb"
+    }
+  }
