@@ -1,0 +1,39 @@
+name: Deploy to Supabase
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Use Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: '18'
+    
+    - name: Install Dependencies
+      run: |
+        cd frontend
+        npm ci
+    
+    - name: Build
+      run: |
+        cd frontend
+        npm run build
+      env:
+        REACT_APP_SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+        REACT_APP_SUPABASE_ANON_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
+    
+    - name: Deploy to Supabase
+      uses: supabase/setup-cli@v1
+      with:
+        supabase_access_token: ${{ secrets.SUPABASE_ACCESS_TOKEN }}
+      run: |
+        supabase deploy
